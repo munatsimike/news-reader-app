@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="nl.project.newsreader2022.fragments.HomeFragment"
+        android:name="nl.project.newsreader2022.ui.fragments.HomeFragment"
         android:label="home_fragment"
         tools:layout="@layout/home_fragment" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
-        android:name="nl.project.newsreader2022.fragments.FavouriteFragment"
+        android:name="nl.project.newsreader2022.ui.fragments.FavouriteFragment"
         android:label="favourite_fragment"
         tools:layout="@layout/favourite_fragment" />
 </navigation>

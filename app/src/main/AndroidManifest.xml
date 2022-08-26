@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="nl.project.newsreader2022" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Newsreader2022"
+        android:name=".hilt.HiltApplication"
         tools:targetApi="31" >
         <activity
             android:name=".MainActivity"

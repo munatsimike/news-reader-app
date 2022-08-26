@@ -1,6 +1,7 @@
-package nl.project.newsreader2022.fragments
+package nl.project.newsreader2022.ui.fragments
 
+import dagger.hilt.android.AndroidEntryPoint
 import nl.project.newsreader2022.databinding.FavouriteFragmentBinding
-
+@AndroidEntryPoint
 class FavouriteFragment: BaseFragment<FavouriteFragmentBinding>(FavouriteFragmentBinding::inflate) {
 }
