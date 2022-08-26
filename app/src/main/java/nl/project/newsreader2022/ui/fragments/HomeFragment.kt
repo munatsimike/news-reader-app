@@ -13,7 +13,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding::infl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.articles.observe(viewLifecycleOwner){
-            binding.hometext.text = it[0].Title
+            binding.hometext.text = it[0].PublishDate
         }
 
         viewModel.error.observe(viewLifecycleOwner){

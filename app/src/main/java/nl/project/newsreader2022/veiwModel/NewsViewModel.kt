@@ -22,7 +22,7 @@ class NewsViewModel @Inject constructor(
 
     init {
         coroutineScope.launch {
-            repo.getNewsArticles()
+            repo.refreshArticles()
         }
     }
 
