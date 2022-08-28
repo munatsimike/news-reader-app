@@ -3,4 +3,9 @@
     <string name="home">Home</string>
     <string name="favourite">Favourite</string>
     <string name="title">News reader app</string>
+    <string name="image">image</string>
+    <string name="description">DESCRIPTION</string>
+    <string name="published_at">PUBLISHED AT</string>
+    <string name="source">SOURCE</string>
+
 </resources>

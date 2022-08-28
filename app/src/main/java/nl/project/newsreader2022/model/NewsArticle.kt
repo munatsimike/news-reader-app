@@ -18,4 +18,4 @@ data class NewsArticle(
     val Summary: String,
     val Title: String,
     val Url: String
-)
+): Article(Id,Url)
