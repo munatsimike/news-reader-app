@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import nl.project.newsreader2022.model.LikedArticle
 import nl.project.newsreader2022.databinding.ItemArticlePreviewBinding
+import nl.project.newsreader2022.model.LikedArticle
 import nl.project.newsreader2022.model.NewsArticle
 import nl.project.newsreader2022.ui.ClickListener
 import javax.inject.Inject
@@ -45,5 +45,9 @@ class NewsAdapter (
             binding.tvPublishedAt.text = PublishDate
         }
         holder.bind(LikedArticle(newsArticles.Id, newsArticles.Url), clickListener)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 }

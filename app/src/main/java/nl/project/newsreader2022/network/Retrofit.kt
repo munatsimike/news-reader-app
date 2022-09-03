@@ -9,7 +9,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-const val BASE_URL = "https://inhollandbackend.azurewebsites.net/"
+const val BASE_URL = "https://inhollandbackend.azurewebsites.net/api/"
 
 private val moshi = Moshi.Builder() // adapter
     .add(KotlinJsonAdapterFactory())
@@ -33,6 +33,12 @@ private val retrofit = Retrofit.Builder()
 object NewsApi {
     val retrofitService: NewsApiService by lazy {
         retrofit.create(NewsApiService::class.java)
+    }
+}
+
+object UserApi {
+    val retrofitService: UserService by lazy {
+        retrofit.create(UserService::class.java)
     }
 }
 

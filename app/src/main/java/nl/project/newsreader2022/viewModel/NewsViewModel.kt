@@ -1,10 +1,8 @@
-package nl.project.newsreader2022.veiwModel
+package nl.project.newsreader2022.viewModel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import nl.project.newsreader2022.repository.NewsRepository
 import javax.inject.Inject
@@ -14,20 +12,12 @@ class NewsViewModel @Inject constructor(
     private val repo: NewsRepository
 ) : ViewModel() {
 
-    private val viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-
     val articles = repo.articles
     val error = repo.error
 
     init {
-        coroutineScope.launch {
+        viewModelScope.launch {
             repo.refreshArticles()
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
     }
 }

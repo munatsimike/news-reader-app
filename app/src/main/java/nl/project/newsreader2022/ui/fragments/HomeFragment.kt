@@ -8,11 +8,11 @@ import nl.project.newsreader2022.adapters.NewsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import nl.project.newsreader2022.databinding.HomeFragmentBinding
 import nl.project.newsreader2022.model.LikedArticle
-import nl.project.newsreader2022.veiwModel.NewsViewModel
-import javax.inject.Inject
+import nl.project.newsreader2022.ui.ClickListener
+import nl.project.newsreader2022.viewModel.NewsViewModel
 
 @AndroidEntryPoint
-open class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding::inflate) {
+open class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding::inflate), ClickListener {
     private val viewModel: NewsViewModel by viewModels()
     private lateinit var newsAdapter: NewsAdapter
 

@@ -13,10 +13,15 @@
         <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/details_fragment.xml" value="0.12552083333333333" />
         <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/favourite_fragment.xml" value="0.12552083333333333" />
         <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/fragment_blank.xml" value="0.1125" />
+        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/fragment_user_login.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/home_fragment.xml" value="0.1265625" />
         <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/item_loading.xml" value="0.21354166666666666" />
+        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/login_bottom_sheet.xml" value="0.20878623188405798" />
+        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/logout_bottom_sheet.xml" value="0.240625" />
         <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1265625" />
         <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/menu/options_menu.xml" value="0.1" />
+        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/xml/authenticator.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/xml/botton_theme.xml" value="0.21354166666666666" />
       </map>
     </option>
   </component>

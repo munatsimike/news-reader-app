@@ -7,12 +7,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import nl.project.newsreader2022.adapters.NewsAdapter
-import nl.project.newsreader2022.database.ArticleDB
 import nl.project.newsreader2022.database.createDB
-import nl.project.newsreader2022.ui.ClickListener
-import nl.project.newsreader2022.ui.fragments.BaseFragment
-import nl.project.newsreader2022.ui.fragments.HomeFragment
+import nl.project.newsreader2022.network.UserService
+import nl.project.newsreader2022.repository.UserRepository
 
 @InstallIn(SingletonComponent::class)
 @Module
