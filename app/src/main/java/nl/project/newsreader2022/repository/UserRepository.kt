@@ -1,16 +1,13 @@
 package nl.project.newsreader2022.repository
 
-import android.util.Log
 import nl.project.newsreader2022.model.AuthToken
 import nl.project.newsreader2022.network.UserApi
 import nl.project.newsreader2022.utils.Coroutines
 import javax.inject.Inject
 
-
 class UserRepository @Inject constructor(
     private val userManager: UserManager
 ) {
-
     val authToken = userManager.getAuthToken
 
      fun userLogin(

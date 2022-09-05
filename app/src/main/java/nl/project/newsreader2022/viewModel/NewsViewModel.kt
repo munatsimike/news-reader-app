@@ -13,11 +13,17 @@ class NewsViewModel @Inject constructor(
 ) : ViewModel() {
 
     val articles = repo.articles
-    val error = repo.error
+    val nextId = repo.nextId
 
     init {
         viewModelScope.launch {
             repo.refreshArticles()
+        }
+    }
+
+    fun getMoreArticles(id: Int, numOfArticles: Int) {
+        viewModelScope.launch {
+            repo.getMoreArticles(id, numOfArticles)
         }
     }
 }

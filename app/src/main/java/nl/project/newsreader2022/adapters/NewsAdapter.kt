@@ -6,48 +6,72 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import nl.project.newsreader2022.databinding.ItemArticlePreviewBinding
+import nl.project.newsreader2022.databinding.ItemLoadingBinding
 import nl.project.newsreader2022.model.LikedArticle
 import nl.project.newsreader2022.model.NewsArticle
 import nl.project.newsreader2022.ui.ClickListener
-import javax.inject.Inject
 
 // recycler view  view with view binding and diffUtil
-
-class NewsAdapter (
+class NewsAdapter(
     private var clickListener: ClickListener,
-) : ListAdapter<NewsArticle, NewsAdapter.ArticleViewHolder>(NewsDiffCallBack()) {
+) : ListAdapter<NewsArticle, RecyclerView.ViewHolder>(NewsDiffCallBack()) {
 
-    private lateinit var binding: ItemArticlePreviewBinding
+    private val VIEW_TYPE_ITEM = 0
+    private val VIEW_TYPE_LOADING = 1
 
-    @Inject
-    lateinit var paginationCallBack: PaginationCallBack
-
-    inner class ArticleViewHolder(binding: ItemArticlePreviewBinding) :
+    inner class ArticleViewHolder(private val binding: ItemArticlePreviewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(article: LikedArticle, clickListener: ClickListener?) {
-            binding.tvTitle.setOnClickListener { clickListener?.onClickItem(article) }
+        fun bind(newsArticles: NewsArticle) {
+            with(newsArticles) {
+                with(binding) {
+                    ivArticleImage.load(Image)
+                    tvTitle.text = Title
+                    tvDescription.text = Summary
+                    tvPublishedAt.text = PublishDate
+                    tvSource.text = Id.toString()
+                }
+            }
+
+            // set onclick listener
+            binding.tvTitle.setOnClickListener {
+                clickListener.onClickItem(
+                    LikedArticle(
+                        newsArticles.Id,
+                        newsArticles.Url
+                    )
+                )
+            }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
-        binding = ItemArticlePreviewBinding
-            .inflate(LayoutInflater.from(parent.context), parent, false)
-        return ArticleViewHolder(binding)
+    inner class LoadingViewHolder(private val binding: ItemLoadingBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun showProgressBar() {
+            binding.progressBar
+        }
     }
 
-    override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        val newsArticles = getItem(position)
-        with(newsArticles) {
-            binding.ivArticleImage.load(Image)
-            binding.tvTitle.text = Title
-            binding.tvDescription.text = Summary
-            binding.tvPublishedAt.text = PublishDate
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        if (viewType == VIEW_TYPE_ITEM) {
+            val itemBinding = ItemArticlePreviewBinding
+                .inflate(LayoutInflater.from(parent.context), parent, false)
+            return ArticleViewHolder(itemBinding)
         }
-        holder.bind(LikedArticle(newsArticles.Id, newsArticles.Url), clickListener)
+        val itemLoadingBinding =
+            ItemLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return LoadingViewHolder(itemLoadingBinding);
     }
 
     override fun getItemViewType(position: Int): Int {
-        return position
+        return if (currentList.lastIndex  == position) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is ArticleViewHolder) {
+            holder.bind(getItem(position))
+        } else {
+            (holder as LoadingViewHolder).showProgressBar()
+        }
     }
 }

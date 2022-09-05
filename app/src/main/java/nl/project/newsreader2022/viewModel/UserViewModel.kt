@@ -58,19 +58,16 @@ class UserViewModel @Inject constructor(private val userRepository: UserReposito
     fun userLogin(
         username: String, password: String
     ) {
-        Log.d("saved", "Logging in outside scope")
         viewModelScope.launch {
-            Log.d("saved", "Logging in inside scope")
-            userRepository.userLogin(username, password).toString()
+            if (passwordError.value == null && usernameError.value == null) {
+                userRepository.userLogin(username, password).toString()
+            }
         }
     }
 
-    fun logout() {
-        Log.d("saved", "Loggin out outside scope")
-        viewModelScope.launch {
-            Log.d("saved", "Logging out inside scope")
-            userRepository.logout()
+        fun logout() {
+            viewModelScope.launch {
+                userRepository.logout()
+            }
         }
     }
-
-}

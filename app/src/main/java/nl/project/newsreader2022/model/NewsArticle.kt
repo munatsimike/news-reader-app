@@ -19,3 +19,6 @@ data class NewsArticle(
     val Title: String,
     val Url: String
 ): Article(Id,Url)
+
+// total articles to retrieve from the Api
+fun numOfArticles() = 20

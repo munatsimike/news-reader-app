@@ -9,9 +9,12 @@ import nl.project.newsreader2022.model.NewsArticle
 
 @Dao
 interface ArticleDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(article: List<NewsArticle>)
 
-    @Query("SELECT * FROM article")
-    fun getAllArticles() : LiveData<List<NewsArticle>>
+    @Query("SELECT * FROM article ORDER BY Id DESC")
+    fun getAllArticles(): LiveData<List<NewsArticle>>
+
+    @Query("DELETE FROM article")
+    fun deleteAllArticles()
 }
