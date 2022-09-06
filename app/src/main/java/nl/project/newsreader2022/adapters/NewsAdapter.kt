@@ -1,7 +1,6 @@
 package nl.project.newsreader2022.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -31,11 +30,8 @@ class NewsAdapter(
 
     inner class LoadingViewHolder(private val binding: ItemLoadingBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun showProgressBar(visibility: Boolean) {
-            if (visibility)
-                binding.progressBar.visibility = View.VISIBLE
-            else
-                binding.progressBar.visibility = View.INVISIBLE
+        fun showProgressBar() {
+            binding.progressBar.visibility
         }
     }
 
@@ -58,7 +54,7 @@ class NewsAdapter(
         if (holder is ArticleViewHolder) {
             holder.bind(getItem(position))
         } else {
-            (holder as LoadingViewHolder).showProgressBar(true)
+            (holder as LoadingViewHolder).showProgressBar()
         }
     }
 }

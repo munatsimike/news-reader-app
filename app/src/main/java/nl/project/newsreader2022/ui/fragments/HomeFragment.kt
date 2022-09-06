@@ -1,15 +1,10 @@
 package nl.project.newsreader2022.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import nl.project.newsreader2022.R
 import nl.project.newsreader2022.databinding.HomeFragmentBinding
-import nl.project.newsreader2022.databinding.ItemLoadingBinding
 import nl.project.newsreader2022.model.numOfArticles
 import nl.project.newsreader2022.utils.ClickListener
 
@@ -46,7 +41,9 @@ open class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding:
                 super.onScrolled(recyclerView, dx, dy)
                 // check if recycler cannot scroll vertically
                 if (!recyclerView.canScrollVertically(1) && dy != 0) {
-                    loadMore()
+                    recyclerView.post {
+                        loadMore()
+                    }
                 }
             }
         })
@@ -54,7 +51,6 @@ open class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding:
 
     // get more articles
     private fun loadMore() {
-        // newsAdapter.submitList(mutableListOf())
         if (nextId != 0)
             viewModel.getMoreArticles(nextId, numOfArticles())
     }
