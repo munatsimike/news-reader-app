@@ -9,7 +9,7 @@ import nl.project.newsreader2022.model.NewsArticle
 
 @Dao
 interface ArticleDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(article: List<NewsArticle>)
 
     @Query("SELECT * FROM article ORDER BY Id DESC")

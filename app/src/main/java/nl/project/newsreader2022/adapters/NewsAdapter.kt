@@ -4,44 +4,27 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import nl.project.newsreader2022.databinding.ItemArticlePreviewBinding
 import nl.project.newsreader2022.databinding.ItemLoadingBinding
-import nl.project.newsreader2022.model.LikedArticle
 import nl.project.newsreader2022.model.NewsArticle
-import nl.project.newsreader2022.ui.ClickListener
+import nl.project.newsreader2022.utils.ClickListener
+import nl.project.newsreader2022.viewModel.NewsViewModel
 
 // recycler view  view with view binding and diffUtil
 class NewsAdapter(
-    private var clickListener: ClickListener,
+  private  val  clickListener: ClickListener,
+   private val newsViewModel: NewsViewModel
 ) : ListAdapter<NewsArticle, RecyclerView.ViewHolder>(NewsDiffCallBack()) {
 
     private val VIEW_TYPE_ITEM = 0
     private val VIEW_TYPE_LOADING = 1
 
-    inner class ArticleViewHolder(private val binding: ItemArticlePreviewBinding) :
+    inner class ArticleViewHolder(val binding: ItemArticlePreviewBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         fun bind(newsArticles: NewsArticle) {
-            with(newsArticles) {
-                with(binding) {
-                    ivArticleImage.load(Image)
-                    tvTitle.text = Title
-                    tvDescription.text = Summary
-                    tvPublishedAt.text = PublishDate
-                    tvSource.text = Id.toString()
-                }
-            }
-
-            // set onclick listener
-            binding.tvTitle.setOnClickListener {
-                clickListener.onClickItem(
-                    LikedArticle(
-                        newsArticles.Id,
-                        newsArticles.Url
-                    )
-                )
-            }
+            binding.article = newsArticles
+            binding.clickListener = clickListener
+            binding.newsViewModel = newsViewModel
         }
     }
 
@@ -64,7 +47,7 @@ class NewsAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (currentList.lastIndex  == position) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
+        return if (currentList.lastIndex == position) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

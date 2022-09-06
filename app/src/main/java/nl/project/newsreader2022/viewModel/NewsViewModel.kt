@@ -1,9 +1,12 @@
 package nl.project.newsreader2022.viewModel
 
+import android.widget.ToggleButton
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import nl.project.newsreader2022.model.NewsArticle
 import nl.project.newsreader2022.repository.NewsRepository
 import javax.inject.Inject
 
@@ -21,9 +24,16 @@ class NewsViewModel @Inject constructor(
         }
     }
 
-    fun getMoreArticles(id: Int, numOfArticles: Int) {
+     fun getMoreArticles(id: Int, numOfArticles: Int) {
         viewModelScope.launch {
             repo.getMoreArticles(id, numOfArticles)
         }
     }
+
+    fun likeDislike(article: NewsArticle){
+        viewModelScope.launch {
+            repo.likeDislike(article)
+        }
+    }
+
 }

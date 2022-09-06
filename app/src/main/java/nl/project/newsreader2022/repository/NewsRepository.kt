@@ -15,6 +15,8 @@ class NewsRepository @Inject constructor(private val database: ArticleDB) {
     suspend fun refreshArticles() {
         withContext(Dispatchers.IO) {
             val response = NewsApi.retrofitService.getInitArticlesAsync().await()
+            database.newsDao.deleteAllArticles()
+            database.nextIdDao.deleteAllIds()
             saveArticlesToDatabase(response.Results)
             saveNextIdToDatabase(response.NextId)
         }
@@ -36,4 +38,14 @@ class NewsRepository @Inject constructor(private val database: ArticleDB) {
     private suspend fun saveNextIdToDatabase(nextId: Int) {
         database.nextIdDao.insertNextId(nextId)
     }
+
+    suspend fun likeDislike(article: NewsArticle) {
+        if (!article.IsLiked) {
+            NewsApi.retrofitService.likeArticleAsync(article.Id).await()
+        } else {
+            NewsApi.retrofitService.disLikeArticleAsync(article.Id).await()
+
+        }
+    }
 }
+

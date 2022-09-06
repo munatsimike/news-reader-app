@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity() {
                         "login"
                     )
                 } else {
-                    Log.d("token", token.AuthToken)
                     if (loginBottomSheet.isVisible)
                         loginBottomSheet.dismiss()
                     logoutBottomSheet.show(

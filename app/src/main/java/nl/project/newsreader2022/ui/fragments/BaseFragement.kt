@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.viewbinding.ViewBinding
+import nl.project.newsreader2022.utils.ClickListener
 import nl.project.newsreader2022.viewModel.NewsViewModel
 
 abstract class BaseFragment<VB : ViewBinding>(private val layoutInflater: (bindingInflater: LayoutInflater) -> VB) :
-    Fragment() {
-    private val viewModel: NewsViewModel by viewModels()
+    Fragment(), ClickListener {
     private var _binding: VB? = null
     val binding: VB
         get() {

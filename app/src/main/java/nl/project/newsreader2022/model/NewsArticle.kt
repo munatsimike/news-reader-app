@@ -1,7 +1,10 @@
 package nl.project.newsreader2022.model
 
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import coil.load
 import com.squareup.moshi.Json
 
 @Json(name = "Result")
@@ -18,7 +21,18 @@ data class NewsArticle(
     val Summary: String,
     val Title: String,
     val Url: String
-): Article(Id,Url)
+) {
+
+    companion object {
+        @JvmStatic
+        @BindingAdapter("imageUrl")
+        fun ImageView.loadImage(url: String) {
+            if (url.isNotEmpty())
+                this.load(url)
+        }
+    }
+}
+
 
 // total articles to retrieve from the Api
 fun numOfArticles() = 20
