@@ -1,6 +1,7 @@
 package nl.project.newsreader2022.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,8 +13,8 @@ import nl.project.newsreader2022.viewModel.NewsViewModel
 
 // recycler view  view with view binding and diffUtil
 class NewsAdapter(
-  private  val  clickListener: ClickListener,
-   private val newsViewModel: NewsViewModel
+    private val clickListener: ClickListener,
+    private val newsViewModel: NewsViewModel
 ) : ListAdapter<NewsArticle, RecyclerView.ViewHolder>(NewsDiffCallBack()) {
 
     private val VIEW_TYPE_ITEM = 0
@@ -30,8 +31,12 @@ class NewsAdapter(
 
     inner class LoadingViewHolder(private val binding: ItemLoadingBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun showProgressBar() {
-            binding.progressBar
+        fun showProgressBar(visibility: Boolean) {
+            if (visibility)
+                binding.progressBar.visibility = View.VISIBLE
+            else
+                binding.progressBar.visibility = View.INVISIBLE
+
         }
     }
 
@@ -47,14 +52,14 @@ class NewsAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (currentList.lastIndex == position) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
+        return if (currentList.lastIndex+1 == position) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ArticleViewHolder) {
             holder.bind(getItem(position))
         } else {
-            (holder as LoadingViewHolder).showProgressBar()
+            (holder as LoadingViewHolder).showProgressBar(true)
         }
     }
 }

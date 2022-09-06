@@ -1,25 +1,25 @@
 package nl.project.newsreader2022.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import androidx.fragment.app.activityViewModels
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import nl.project.newsreader2022.adapters.NewsAdapter
+import nl.project.newsreader2022.R
 import nl.project.newsreader2022.databinding.HomeFragmentBinding
-import nl.project.newsreader2022.model.NewsArticle
+import nl.project.newsreader2022.databinding.ItemLoadingBinding
 import nl.project.newsreader2022.model.numOfArticles
-import nl.project.newsreader2022.viewModel.NewsViewModel
+import nl.project.newsreader2022.utils.ClickListener
 
 @AndroidEntryPoint
-open class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding::inflate){
-    private val viewModel: NewsViewModel by activityViewModels()
-    private lateinit var newsAdapter: NewsAdapter
+open class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding::inflate),
+    ClickListener {
     private var nextId = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        newsAdapter = NewsAdapter(this, viewModel)
         binding.newsAdapter = newsAdapter
         displayArticles()
         initScrollListener()
@@ -28,7 +28,7 @@ open class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding:
 
     private fun displayArticles() {
         viewModel.articles.observe(viewLifecycleOwner) {
-            newsAdapter.submitList(it)
+            newsAdapter.submitList(it.toMutableList())
         }
     }
 
@@ -54,11 +54,8 @@ open class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding:
 
     // get more articles
     private fun loadMore() {
+        // newsAdapter.submitList(mutableListOf())
         if (nextId != 0)
             viewModel.getMoreArticles(nextId, numOfArticles())
-    }
-
-    override fun onClickItem(view: View, article: NewsArticle) {
-        viewModel.likeDislike(article)
     }
 }

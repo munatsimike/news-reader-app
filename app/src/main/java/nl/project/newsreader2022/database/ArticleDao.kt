@@ -1,10 +1,7 @@
 package nl.project.newsreader2022.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import nl.project.newsreader2022.model.NewsArticle
 
 @Dao
@@ -17,4 +14,7 @@ interface ArticleDao {
 
     @Query("DELETE FROM article")
     fun deleteAllArticles()
+
+    @Query("UPDATE article SET IsLiked = :isLike WHERE Id = :id")
+    suspend fun likeDislike(isLike: Int, id: Int)
 }

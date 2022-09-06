@@ -1,13 +1,31 @@
 package nl.project.newsreader2022.ui.fragments
 
+import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import nl.project.newsreader2022.databinding.FavouriteFragmentBinding
-import nl.project.newsreader2022.model.NewsArticle
 
 @AndroidEntryPoint
 class FavouriteFragment: BaseFragment<FavouriteFragmentBinding>(FavouriteFragmentBinding::inflate) {
-    override fun onClickItem(view: View, article: NewsArticle) {
-        TODO("Not yet implemented")
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.newsAdapter = newsAdapter
+        refreshLikedArticles()
+        displayFavourites()
+    }
+
+    private fun displayFavourites(){
+        viewModel.likedArticles.observe(viewLifecycleOwner){
+            newsAdapter.submitList(it.toMutableList())
+        }
+    }
+
+    private fun refreshLikedArticles(){
+        lifecycleScope.launch {
+            viewModel.refreshLikedArticles()
+        }
     }
 }
