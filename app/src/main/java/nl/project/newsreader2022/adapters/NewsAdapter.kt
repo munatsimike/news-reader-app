@@ -36,7 +36,6 @@ class NewsAdapter(
                 binding.progressBar.visibility = View.VISIBLE
             else
                 binding.progressBar.visibility = View.INVISIBLE
-
         }
     }
 
