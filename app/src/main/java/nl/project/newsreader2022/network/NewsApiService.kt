@@ -1,26 +1,25 @@
 package nl.project.newsreader2022.network
 
-import kotlinx.coroutines.Deferred
-import nl.project.newsreader2022.model.NetworkResponse
+import nl.project.newsreader2022.model.MyData
 import retrofit2.Call
 import retrofit2.http.*
 
 interface NewsApiService {
     @GET("Articles")
-    fun getInitArticlesAsync(): Deferred<NetworkResponse>
+    fun getInitArticlesAsync(): Call<MyData>
 
     @GET("Articles/liked")
-    fun likedArticlesAsync(): Deferred<NetworkResponse>
+    fun likedArticlesAsync(): Call<MyData>
 
     @GET("Articles/{id}")
     fun getMoreArticlesAsync(
         @Path("id") nextId: Int,
         @Query("count") count: Int
-    ): Deferred<NetworkResponse>
+    ): Call<MyData>
 
     @PUT("Articles/{id}/like")
-   suspend fun likeArticleAsync(@Path("id") id: Int)
+    suspend fun likeArticleAsync(@Path("id") id: Int)
 
     @DELETE("Articles/{id}/like")
-   suspend fun disLikeArticleAsync(@Path("id") id: Int)
+    suspend fun disLikeArticleAsync(@Path("id") id: Int)
 }

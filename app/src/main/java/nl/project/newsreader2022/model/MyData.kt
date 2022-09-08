@@ -1,6 +1,6 @@
 package nl.project.newsreader2022.model
 
-data class NetworkResponse(
+data class MyData(
     val NextId: Int,
     val Results: List<NewsArticle>
 )

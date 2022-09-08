@@ -47,7 +47,7 @@ class NewsAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (currentList.lastIndex+1 == position) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
+        return if (currentList.lastIndex == position) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

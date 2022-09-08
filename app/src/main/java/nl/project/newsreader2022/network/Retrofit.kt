@@ -1,6 +1,7 @@
 package nl.project.newsreader2022.network
 
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
+import com.skydoves.sandwich.adapters.DataSourceCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import nl.project.newsreader2022.BuildConfig
@@ -18,24 +19,27 @@ private val moshi = Moshi.Builder() // adapter
 
 private var authToken: AuthToken? = AuthToken("16418-271b9ca8-f44e-4201-a7ca-1cd988b00e9f")
 
-private val retrofit = Retrofit.Builder()
-    .client(
-        OkHttpClient.Builder().addInterceptor {  chain ->
-            chain.proceed(chain.request().newBuilder().also{
-                authToken?.let { it1 -> it.addHeader("x-authtoken", it1.AuthToken) }
-            }.build())
-        }.also { client ->
-            if (BuildConfig.DEBUG) {
-                val logging = HttpLoggingInterceptor()
-                logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-                client.addInterceptor(logging)
-            }
-        }.build()
-    )
-    .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .addCallAdapterFactory(CoroutineCallAdapterFactory())
-    .baseUrl(BASE_URL)
-    .build()
+private val retrofit by lazy {
+    Retrofit.Builder()
+        .client(
+            OkHttpClient.Builder().addInterceptor {  chain ->
+                chain.proceed(chain.request().newBuilder().also{
+                    authToken?.let { it1 -> it.addHeader("x-authtoken", it1.AuthToken) }
+                }.build())
+            }.also { client ->
+                if (BuildConfig.DEBUG) {
+                    val logging = HttpLoggingInterceptor()
+                    logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+                    client.addInterceptor(logging)
+                }
+            }.build()
+        )
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
+        .addCallAdapterFactory(DataSourceCallAdapterFactory.create())
+        .baseUrl(BASE_URL)
+        .build()
+}
 
 object NewsApi {
     val retrofitService: NewsApiService by lazy {
@@ -48,5 +52,3 @@ object UserApi {
         retrofit.create(UserService::class.java)
     }
 }
-
-

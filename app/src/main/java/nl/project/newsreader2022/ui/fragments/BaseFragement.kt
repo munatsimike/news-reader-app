@@ -10,12 +10,13 @@ import androidx.viewbinding.ViewBinding
 import nl.project.newsreader2022.adapters.NewsAdapter
 import nl.project.newsreader2022.model.NewsArticle
 import nl.project.newsreader2022.utils.ClickListener
+import nl.project.newsreader2022.utils.snackbar
 import nl.project.newsreader2022.viewModel.NewsViewModel
 
 abstract class BaseFragment<VB : ViewBinding>(private val layoutInflater: (bindingInflater: LayoutInflater) -> VB) :
     Fragment(), ClickListener {
     val viewModel: NewsViewModel by activityViewModels()
-     lateinit var newsAdapter: NewsAdapter
+    lateinit var newsAdapter: NewsAdapter
 
     private var _binding: VB? = null
     val binding: VB
@@ -30,6 +31,7 @@ abstract class BaseFragment<VB : ViewBinding>(private val layoutInflater: (bindi
     ): View? {
         newsAdapter = NewsAdapter(this, viewModel)
         _binding = layoutInflater.invoke(inflater)
+        showToast()
 
         if (_binding == null) {
             throw IllegalArgumentException("Binding cannot be null")
@@ -39,5 +41,11 @@ abstract class BaseFragment<VB : ViewBinding>(private val layoutInflater: (bindi
 
     override fun onClickItem(view: View, article: NewsArticle) {
         viewModel.likeDislike(article)
+    }
+
+    private fun showToast() {
+        viewModel.toastData.observe(viewLifecycleOwner) {
+            requireView().snackbar(it)
+        }
     }
 }

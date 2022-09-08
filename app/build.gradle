@@ -95,6 +95,9 @@ dependencies {
     // live data
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
 
+    //sandwich
+    implementation "com.github.skydoves:sandwich:1.2.7"
+
 }
 
 // Allow references to generated code

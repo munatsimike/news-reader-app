@@ -1,6 +1,5 @@
 package nl.project.newsreader2022.viewModel
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -11,7 +10,7 @@ import javax.inject.Inject
 @HiltViewModel
 class NewsViewModel @Inject constructor(
     private val repo: NewsRepository
-) : ViewModel() {
+) : BaseViewModel<NewsRepository>(repo) {
 
     val likedArticles = repo.likedArticle
     val articles = repo.articles
@@ -35,7 +34,10 @@ class NewsViewModel @Inject constructor(
         }
     }
 
-    suspend fun refreshLikedArticles() {
-        repo.likedArticles()
+   fun refreshLikedArticles() {
+       viewModelScope.launch {
+           repo.likedArticles()
+
+       }
     }
 }

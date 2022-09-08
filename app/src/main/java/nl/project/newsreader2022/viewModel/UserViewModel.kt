@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(private val userRepository: UserRepository) :
-    ViewModel() {
+    BaseViewModel<UserRepository>(userRepository) {
     private val _passwordError = MutableLiveData("")
     private val _usernameError = MutableLiveData("")
 

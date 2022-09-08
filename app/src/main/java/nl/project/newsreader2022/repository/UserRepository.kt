@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class UserRepository @Inject constructor(
     private val userManager: UserManager
-) {
+) : BaseRepository(){
     val authToken = userManager.getAuthToken
 
      fun userLogin(
