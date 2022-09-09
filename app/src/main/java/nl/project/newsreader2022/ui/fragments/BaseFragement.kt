@@ -10,7 +10,7 @@ import androidx.viewbinding.ViewBinding
 import nl.project.newsreader2022.adapters.NewsAdapter
 import nl.project.newsreader2022.model.NewsArticle
 import nl.project.newsreader2022.utils.ClickListener
-import nl.project.newsreader2022.utils.snackbar
+import nl.project.newsreader2022.utils.handleApiError
 import nl.project.newsreader2022.viewModel.NewsViewModel
 
 abstract class BaseFragment<VB : ViewBinding>(private val layoutInflater: (bindingInflater: LayoutInflater) -> VB) :
@@ -45,7 +45,7 @@ abstract class BaseFragment<VB : ViewBinding>(private val layoutInflater: (bindi
 
     private fun showToast() {
         viewModel.toastData.observe(viewLifecycleOwner) {
-            requireView().snackbar(it)
+            handleApiError(it)
         }
     }
 }

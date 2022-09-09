@@ -2,7 +2,10 @@ package nl.project.newsreader2022.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.skydoves.sandwich.*
+import com.skydoves.sandwich.ApiResponse
+import com.skydoves.sandwich.onError
+import com.skydoves.sandwich.onFailure
+import com.skydoves.sandwich.onSuccess
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import nl.project.newsreader2022.database.ArticleDB
@@ -11,7 +14,6 @@ import nl.project.newsreader2022.model.NewsArticle
 import nl.project.newsreader2022.network.NewsApi
 import nl.project.newsreader2022.utils.Coroutines
 import nl.project.newsreader2022.utils.toInt
-import retrofit2.Call
 import javax.inject.Inject
 
 class NewsRepository @Inject constructor(private val database: ArticleDB) : BaseRepository() {
@@ -26,38 +28,32 @@ class NewsRepository @Inject constructor(private val database: ArticleDB) : Base
 
     // get first batch of articles
     suspend fun refreshArticles() {
-        Coroutines.io {
-            deleteArticleNextId()
-        }
-        handleAPiCalls { NewsApi.retrofitService.getInitArticlesAsync() }
+        deleteArticleNextId()
+        handleAPiCalls(NewsApi.retrofitService.getInitArticlesAsync())
     }
 
     // get more articles  after initial batch
     suspend fun getMoreArticles(nextId: Int, numOfArticles: Int) {
-        handleAPiCalls { NewsApi.retrofitService.getMoreArticlesAsync(nextId, numOfArticles) }
+        handleAPiCalls(NewsApi.retrofitService.getMoreArticlesAsync(nextId, numOfArticles))
     }
 
     // handle response from api calls
-    private suspend fun handleAPiCalls(networkResponse: () -> Call<MyData>) {
-        networkResponse.invoke()
-            .request { response ->
-                response.onSuccess {
-                    Coroutines.io {
-                        saveArticlesNextIdToRoom(data)
-                    }
-                }.onFailure {
-                    handleAPiErrorFailure(response)
-                }.onError {
-                    handleAPiErrorFailure(response)
+    private suspend fun handleAPiCalls(networkResponse: ApiResponse<MyData>) {
+        networkResponse
+            .onSuccess {
+                Coroutines.io {
+                    saveArticlesNextIdToRoom(data)
                 }
-            }.request()
+            }.onFailure {
+                toastData_.value = this
+            }.onError {
+                toastData_.value = this
+            }
     }
 
     private suspend fun saveArticlesNextIdToRoom(data: MyData) {
-        withContext(Dispatchers.IO) {
-            saveArticlesToDatabase(data.Results)
-            saveNextIdToDatabase(data.NextId)
-        }
+        saveArticlesToDatabase(data.Results)
+        saveNextIdToDatabase(data.NextId)
     }
 
     // save articles from api to local database
@@ -75,9 +71,14 @@ class NewsRepository @Inject constructor(private val database: ArticleDB) : Base
         if (!article.IsLiked) {
             // like article
             NewsApi.retrofitService.likeArticleAsync(article.Id)
+                .onError { toastData_.value = this }
+                .onFailure { toastData_.value = this }
+
         } else {
             // dislike article
             NewsApi.retrofitService.disLikeArticleAsync(article.Id)
+                .onError { toastData_.value = this }
+                .onFailure { toastData_.value = this }
         }
         // update local database
         likeDislikeRoomDB(!article.IsLiked, article.Id)
@@ -99,13 +100,10 @@ class NewsRepository @Inject constructor(private val database: ArticleDB) : Base
 
     // fetch liked articles from api
     suspend fun likedArticles() {
-        withContext(Dispatchers.IO) {
-            NewsApi.retrofitService.likedArticlesAsync().request { response ->
-                response.onSuccess {
-                    _likedArticle.value = data.Results
-                }
+        NewsApi.retrofitService.likedArticlesAsync()
+            .onSuccess {
+                _likedArticle.value = data.Results
             }
-        }
     }
 
     private suspend fun deleteArticleNextId() {
