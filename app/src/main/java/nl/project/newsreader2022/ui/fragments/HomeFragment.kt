@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import nl.project.newsreader2022.databinding.HomeFragmentBinding
 import nl.project.newsreader2022.model.numOfArticles
-import nl.project.newsreader2022.utils.ClickListener
+import nl.project.newsreader2022.miscellaneous.ClickListener
 
 @AndroidEntryPoint
 open class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding::inflate),
@@ -27,7 +27,7 @@ open class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding:
         }
     }
 
-    // next id needed for endless scrolling
+    // check  for changes to next id needed for endless scrolling
     private fun nextId() {
         viewModel.nextId.observe(viewLifecycleOwner) {
             if (it != null)
@@ -49,7 +49,7 @@ open class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding:
         })
     }
 
-    // get more articles
+    // get more articles after the first batch has scrolled to the bottom of the recycler view
     private fun loadMore() {
         if (nextId != 0)
             viewModel.getMoreArticles(nextId, numOfArticles())

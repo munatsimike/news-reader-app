@@ -12,7 +12,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 const val BASE_URL = "https://inhollandbackend.azurewebsites.net/api/"
 
-private var authToken: AuthToken? = AuthToken("16418-7f9736a2-07bb-4e92-a8c1-dbe26e063ec0")
+private var authToken: AuthToken? = AuthToken("16418-8da61777-513f-412e-ab2a-1bc51a7ffe0e")
 
 private val moshi = Moshi.Builder() // adapter
     .add(KotlinJsonAdapterFactory())

@@ -1,4 +1,4 @@
-package nl.project.newsreader2022.utils
+package nl.project.newsreader2022.miscellaneous
 
 import android.view.View
 import nl.project.newsreader2022.model.NewsArticle

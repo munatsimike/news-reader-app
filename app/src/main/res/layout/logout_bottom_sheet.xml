@@ -17,7 +17,7 @@
             android:layout_width="300dp"
             android:layout_height="58dp"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/teal"
+            android:backgroundTint="@color/black"
             android:text="@string/logout"
             android:onClick="@{()->userViewModel.logout()}"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"

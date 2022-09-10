@@ -2,12 +2,11 @@ package nl.project.newsreader2022.ui.fragments
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import nl.project.newsreader2022.databinding.FavouriteFragmentBinding
 
 @AndroidEntryPoint
+// this class contains code to display liked articles
 class FavouriteFragment :
     BaseFragment<FavouriteFragmentBinding>(FavouriteFragmentBinding::inflate) {
 
@@ -27,5 +26,4 @@ class FavouriteFragment :
     private fun refreshLikedArticles() {
         viewModel.refreshLikedArticles()
     }
-
 }

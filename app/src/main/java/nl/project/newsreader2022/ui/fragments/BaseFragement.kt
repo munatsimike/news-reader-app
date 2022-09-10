@@ -9,17 +9,18 @@ import androidx.fragment.app.activityViewModels
 import androidx.viewbinding.ViewBinding
 import nl.project.newsreader2022.adapters.NewsAdapter
 import nl.project.newsreader2022.model.NewsArticle
-import nl.project.newsreader2022.utils.ClickListener
-import nl.project.newsreader2022.utils.handleApiError
+import nl.project.newsreader2022.miscellaneous.ClickListener
+import nl.project.newsreader2022.miscellaneous.showApiErrorFailure
 import nl.project.newsreader2022.viewModel.NewsViewModel
 
+// this class contains code that can be shared by all fragments
 abstract class BaseFragment<VB : ViewBinding>(private val layoutInflater: (bindingInflater: LayoutInflater) -> VB) :
     Fragment(), ClickListener {
     val viewModel: NewsViewModel by activityViewModels()
     lateinit var newsAdapter: NewsAdapter
 
     private var _binding: VB? = null
-    val binding: VB
+    open val binding: VB
         get() {
             return _binding as VB
         }
@@ -43,9 +44,10 @@ abstract class BaseFragment<VB : ViewBinding>(private val layoutInflater: (bindi
         viewModel.likeDislike(article)
     }
 
+    //  display responses from api
     private fun showToast() {
         viewModel.toastData.observe(viewLifecycleOwner) {
-            handleApiError(it)
+            it.getContentIfNotHandled()?.let { it1 -> showApiErrorFailure(it1) }
         }
     }
 }

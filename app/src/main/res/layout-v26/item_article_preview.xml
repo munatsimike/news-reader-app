@@ -13,7 +13,7 @@
 
         <variable
             name="clickListener"
-            type="nl.project.newsreader2022.utils.ClickListener" />
+            type="nl.project.newsreader2022.miscellaneous.ClickListener" />
     </data>
 
     <LinearLayout

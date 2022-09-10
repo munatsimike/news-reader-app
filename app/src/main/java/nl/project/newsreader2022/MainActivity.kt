@@ -1,8 +1,6 @@
 package nl.project.newsreader2022
 
-import android.app.ProgressDialog.show
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels

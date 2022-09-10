@@ -12,8 +12,9 @@ import nl.project.newsreader2022.database.ArticleDB
 import nl.project.newsreader2022.model.MyData
 import nl.project.newsreader2022.model.NewsArticle
 import nl.project.newsreader2022.network.NewsApi
-import nl.project.newsreader2022.utils.Coroutines
-import nl.project.newsreader2022.utils.toInt
+import nl.project.newsreader2022.miscellaneous.Coroutines
+import nl.project.newsreader2022.miscellaneous.Event
+import nl.project.newsreader2022.miscellaneous.toInt
 import javax.inject.Inject
 
 class NewsRepository @Inject constructor(private val database: ArticleDB) : BaseRepository() {
@@ -41,13 +42,11 @@ class NewsRepository @Inject constructor(private val database: ArticleDB) : Base
     private suspend fun handleAPiCalls(networkResponse: ApiResponse<MyData>) {
         networkResponse
             .onSuccess {
-                Coroutines.io {
-                    saveArticlesNextIdToRoom(data)
-                }
+                Coroutines.io { saveArticlesNextIdToRoom(data) }
             }.onFailure {
-                toastData_.value = this
+                toastData_.value = Event(this)
             }.onError {
-                toastData_.value = this
+                toastData_.value = Event(this)
             }
     }
 
@@ -71,14 +70,14 @@ class NewsRepository @Inject constructor(private val database: ArticleDB) : Base
         if (!article.IsLiked) {
             // like article
             NewsApi.retrofitService.likeArticleAsync(article.Id)
-                .onError { toastData_.value = this }
-                .onFailure { toastData_.value = this }
+                .onError { toastData_.value = Event(this) }
+                .onFailure { toastData_.value = Event(this) }
 
         } else {
             // dislike article
             NewsApi.retrofitService.disLikeArticleAsync(article.Id)
-                .onError { toastData_.value = this }
-                .onFailure { toastData_.value = this }
+                .onError { toastData_.value = Event(this) }
+                .onFailure { toastData_.value = Event(this) }
         }
         // update local database
         likeDislikeRoomDB(!article.IsLiked, article.Id)
@@ -101,9 +100,7 @@ class NewsRepository @Inject constructor(private val database: ArticleDB) : Base
     // fetch liked articles from api
     suspend fun likedArticles() {
         NewsApi.retrofitService.likedArticlesAsync()
-            .onSuccess {
-                _likedArticle.value = data.Results
-            }
+            .onSuccess { _likedArticle.value = data.Results }
     }
 
     private suspend fun deleteArticleNextId() {

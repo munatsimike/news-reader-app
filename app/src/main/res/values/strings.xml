@@ -11,13 +11,13 @@
     <string name="auth_account_type">NewsReader</string>
     <string name="login">login</string>
     <string name="logout">logout</string>
+    <string name="member_login">Member login</string>
     <string name="password">Password</string>
     <string name="username_hint">mike</string>
     <string name="forgot_your_password">Forgot your password</string>
-    <string name="don_t_have_an_account_register_now">Don\'t have an account</string>
-    <string name="already_have_an_account_login_now">Already have an account</string>
+    <string name="don_t_have_an_account_register_now">Don\'t have an account register now</string>
+    <string name="already_have_an_account_login_now">Already have an account login</string>
     <string name="register_now">Register now</string>
     <string name="messageLabel">TextView</string>
     <string name="welcome">Welcome</string>
-
 </resources>

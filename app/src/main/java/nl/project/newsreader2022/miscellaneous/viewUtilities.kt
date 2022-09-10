@@ -1,4 +1,4 @@
-package nl.project.newsreader2022.utils
+package nl.project.newsreader2022.miscellaneous
 
 import android.graphics.Color
 import android.view.View
@@ -8,16 +8,16 @@ import com.google.android.material.snackbar.Snackbar
 import com.skydoves.sandwich.ApiResponse
 import com.skydoves.sandwich.onError
 import com.skydoves.sandwich.onFailure
-import com.skydoves.sandwich.onSuccess
 
 fun Boolean.toInt() = if (this) 1 else 0
 
 fun View.snackbar(message: String, action: (() -> Unit)? = null) {
-    val snackbar = Snackbar.make(this, message, 9000)
+    val snackbar = Snackbar.make(this, message, 7000)
     val snackText = snackbar.view.findViewById<TextView>(
-        com.google.android.material.R.id.snackbar_text)
-    snackText.textSize=18F
-    snackbar.setBackgroundTint(Color.DKGRAY)
+        com.google.android.material.R.id.snackbar_text
+    )
+    snackText.textSize = 18F
+    snackbar.setBackgroundTint(Color.rgb(55,0,179))
     snackbar.setTextMaxLines(3)
 
     action?.let {
@@ -29,20 +29,18 @@ fun View.snackbar(message: String, action: (() -> Unit)? = null) {
 }
 
 // handle errors in wrapped in the resource class
-fun Fragment.handleApiError(
+fun Fragment.showApiErrorFailure(
     response: ApiResponse<Any>,
     retry: (() -> Unit)? = null // try if operation fails
 ) {
+
     response.onFailure {
-        requireView().snackbar(
-            "No Internet, please check your internet connection",
-        )
+        requireView().snackbar("No Internet, please check your internet connection")
     }.onError {
         if (statusCode.code == 401)
-        requireView().snackbar(
-            "Invalid credentials, please check your username and password"
-        )
-    }.onSuccess {
-
+            requireView().snackbar(
+                "User not logged in, please login to access favourites"
+            )
     }
 }
+

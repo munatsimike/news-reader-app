@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
-        <item name="android:textSize">@dimen/fifteen_sp</item>
+        <item name="android:textSize">@dimen/sp_18</item>
     </style>
 
     <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
-        <item name="android:textSize">@dimen/fifteen_sp</item>
+        <item name="android:textSize">@dimen/sp_18</item>
     </style>
 
     <style name="progressBarColor" parent="@style/Theme.AppCompat">
         <item name="colorAccent">#512DA8</item>
     </style>
-
 </resources>

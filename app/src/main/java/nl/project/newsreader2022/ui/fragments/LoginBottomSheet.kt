@@ -1,30 +1,50 @@
 package nl.project.newsreader2022.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.skydoves.sandwich.onError
+import com.skydoves.sandwich.onFailure
+import com.skydoves.sandwich.onSuccess
 import dagger.hilt.android.AndroidEntryPoint
 import nl.project.newsreader2022.databinding.LoginBottomSheetBinding
-import nl.project.newsreader2022.viewModel.UserViewModel
+import nl.project.newsreader2022.miscellaneous.showApiErrorFailure
+import nl.project.newsreader2022.model.UserRegistrationResponse
 
 @AndroidEntryPoint
-class LoginBottomSheet : BottomSheetDialogFragment() {
-    private val sharedViewModel: UserViewModel by activityViewModels()
-    private lateinit var binding: LoginBottomSheetBinding
+class LoginBottomSheet :
+    BaseBottomSheetDialogFragment<LoginBottomSheetBinding>(LoginBottomSheetBinding::inflate) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = LoginBottomSheetBinding.inflate(inflater, container, false)
+    private val registrationResponse: MutableLiveData<String> = MutableLiveData()
+    val response: LiveData<String> = registrationResponse
+
+    private val _isRegistered: MutableLiveData<Boolean> = MutableLiveData()
+    val isRegistered: LiveData<Boolean> = _isRegistered
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        showRegistrationResponse()
         binding.lifecycleOwner = viewLifecycleOwner
         binding.userViewModel = sharedViewModel
-        return binding.root
+        binding.loginBottomSheet = this
+    }
+
+    private fun showRegistrationResponse() {
+        sharedViewModel.toastData.observe(viewLifecycleOwner) { response ->
+            response.getContentIfNotHandled().let {
+                it?.onSuccess {
+                    if (this.data is UserRegistrationResponse) {
+                        val result = (this.data as UserRegistrationResponse)
+                        _isRegistered.value = result.Success
+                        registrationResponse.value = result.Message
+                        sharedViewModel.setLoginRegisterBtnText(!result.Success)
+                    }
+                }?.onError { showApiErrorFailure(this) }
+                    ?.onFailure { showApiErrorFailure(this) }
+            }
+        }
     }
 }
+
+

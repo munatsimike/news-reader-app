@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -9,28 +9,66 @@
             name="userViewModel"
             type="nl.project.newsreader2022.viewModel.UserViewModel" />
 
+        <variable
+            name="loginBottomSheet"
+            type="nl.project.newsreader2022.ui.fragments.LoginBottomSheet" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="30dp">
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dp_6">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_account_circle_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/memberLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:text="@string/member_login"
+            android:textSize="@dimen/sp_22"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{loginBottomSheet.response}"
+            android:textColor='@{loginBottomSheet.isRegistered ? @color/green : @color/red}'
+            android:textSize="@dimen/sp_17"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/memberLogin" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/login_emailContainer"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_margin="@dimen/dp_8"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_8"
             app:errorEnabled="true"
             app:helperText="@{userViewModel.usernameError}"
             app:helperTextTextColor="@color/design_default_color_error"
-            app:layout_constraintBottom_toTopOf="@+id/password_container"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/username"
@@ -48,16 +86,17 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_margin="@dimen/dp_8"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="@dimen/dp_8"
             app:errorEnabled="true"
             app:helperText="@{userViewModel.passwordError}"
             app:helperTextTextColor="@color/design_default_color_error"
-            app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_emailContainer"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -70,28 +109,53 @@
                 android:onTextChanged="@{(text,start,before, count)->userViewModel.validatePassword(text.toString())}" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <ToggleButton
+            android:id="@+id/loginRegisterToggleBtnTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/white"
+            android:checked="@{userViewModel.registerLoginTextToggle}"
+            android:fontFamily="@font/roboto"
+            android:onCheckedChanged="@{(button, state)->userViewModel.setLoginRegisterBtnText(state)}"
+            android:stateListAnimator="@null"
+            android:textAllCaps="false"
+            android:textColor="#1976D2"
+            android:textOn="@string/already_have_an_account_login_now"
+            android:textOff="@string/don_t_have_an_account_register_now"
+            android:textSize="@dimen/sp_18"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
+
         <Button
             android:id="@+id/buttonLogin"
             android:layout_width="347dp"
             android:layout_height="58dp"
             android:layout_marginStart="32dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/teal"
-            android:onClick="@{()->userViewModel.userLogin(username.getText().toString(), password.getText().toString())}"
-            android:text="@string/login"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/roboto"
+            android:onClick="@{()->userViewModel.userLoginRegister(username.getText().toString(), password.getText().toString())}"
+            android:text='@{userViewModel.loginRegisterBtnText}'
             android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            android:textSize="@dimen/sp_16"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password_container" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="188dp"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="243dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintGuide_begin="431dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

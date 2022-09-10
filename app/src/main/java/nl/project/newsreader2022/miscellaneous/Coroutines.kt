@@ -1,4 +1,4 @@
-package nl.project.newsreader2022.utils
+package nl.project.newsreader2022.miscellaneous
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

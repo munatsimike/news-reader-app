@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import nl.project.newsreader2022.databinding.ItemArticlePreviewBinding
 import nl.project.newsreader2022.databinding.ItemLoadingBinding
 import nl.project.newsreader2022.model.NewsArticle
-import nl.project.newsreader2022.utils.ClickListener
+import nl.project.newsreader2022.miscellaneous.ClickListener
 import nl.project.newsreader2022.viewModel.NewsViewModel
 
 // recycler view  view with view binding and diffUtil

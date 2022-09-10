@@ -22,17 +22,20 @@ class NewsViewModel @Inject constructor(
         }
     }
 
+    // get more articles after previous batch has scrolled to the end on the recycler view
     fun getMoreArticles(id: Int, numOfArticles: Int) {
         viewModelScope.launch {
             repo.getMoreArticles(id, numOfArticles)
         }
     }
 
+    //
     fun likeDislike(article: NewsArticle) {
         viewModelScope.launch {
             repo.likeDislikeAPi(article)
         }
     }
+
 
    fun refreshLikedArticles() {
        viewModelScope.launch {
