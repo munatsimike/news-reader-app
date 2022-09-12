@@ -16,8 +16,10 @@ class NewsAdapter(
     private val newsViewModel: NewsViewModel
 ) : ListAdapter<NewsArticle, RecyclerView.ViewHolder>(NewsDiffCallBack()) {
 
-    private val VIEW_TYPE_ITEM = 0
-    private val VIEW_TYPE_LOADING = 1
+    companion object {
+        private const val VIEW_TYPE_ITEM = 0
+        private const val VIEW_TYPE_LOADING = 1
+    }
 
     inner class ArticleViewHolder(val binding: ItemArticlePreviewBinding) :
         RecyclerView.ViewHolder(binding.root) {

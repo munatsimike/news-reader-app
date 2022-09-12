@@ -6,11 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import nl.project.newsreader2022.adapters.NewsAdapter
-import nl.project.newsreader2022.model.NewsArticle
 import nl.project.newsreader2022.miscellaneous.ClickListener
 import nl.project.newsreader2022.miscellaneous.showApiErrorFailure
+import nl.project.newsreader2022.model.NewsArticle
 import nl.project.newsreader2022.viewModel.NewsViewModel
 
 // this class contains code that can be shared by all fragments
@@ -40,13 +41,14 @@ abstract class BaseFragment<VB : ViewBinding>(private val layoutInflater: (bindi
         return binding.root
     }
 
-    override fun onClickItem(view: View, article: NewsArticle) {
-        viewModel.likeDislike(article)
+    // navigate to the details page from any destination
+    override fun onClickItem(article: NewsArticle) {
+        findNavController().navigate(HomeFragmentDirections.actionGlobalDetailsFragment(article))
     }
 
     //  display responses from api
     private fun showToast() {
-        viewModel.toastData.observe(viewLifecycleOwner) {
+        viewModel.toastMessage.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { it1 -> showApiErrorFailure(it1) }
         }
     }

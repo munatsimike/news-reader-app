@@ -20,4 +20,6 @@
     <string name="register_now">Register now</string>
     <string name="messageLabel">TextView</string>
     <string name="welcome">Welcome</string>
+    <string name="todo">TODO</string>
+    <string name="related">Related</string>
 </resources>

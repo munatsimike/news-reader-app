@@ -3,30 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/drawable/bottom_nav_selector.xml" value="0.136" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.136" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.1145" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.2035" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.2535" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/drawable/ic_baseline_person_2_24.xml" value="0.1145" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/drawable/like_dislike_background_selector.xml" value="0.2035" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout-v26/activity_main.xml" value="0.12552083333333333" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout-v26/item_article_preview.xml" value="0.1265625" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/activity_main.xml" value="0.1265625" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/details_fragment.xml" value="0.12552083333333333" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/favourite_fragment.xml" value="0.12552083333333333" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/fragment_blank.xml" value="0.1125" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/fragment_user_login.xml" value="0.27447916666666666" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/home_fragment.xml" value="0.1265625" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/item_loading.xml" value="0.21354166666666666" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/login_bottom_sheet.xml" value="0.1" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/logout_bottom_sheet.xml" value="0.240625" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1265625" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/menu/options_menu.xml" value="0.1" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2035" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/xml/authenticator.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/xml/botton_theme.xml" value="0.21354166666666666" />
-        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/xml/like_dislike_background_selector.xml" value="0.2125" />
+        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/details_fragment.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/home_fragment.xml" value="0.22826086956521738" />
       </map>
     </option>
   </component>

@@ -1,9 +1,9 @@
 package nl.project.newsreader2022.model
 
-import kotlinx.serialization.Serializable
+import java.io.Serializable
 
-@Serializable
+@kotlinx.serialization.Serializable
 data class Category(
     val Id: Int,
     val Name: String
-)
+): Serializable

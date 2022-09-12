@@ -11,7 +11,7 @@ import nl.project.newsreader2022.model.MyNextId
 
 @Database(
     entities = [NewsArticle::class, MyNextId::class],
-    version = 2
+    version = 1
 )
 @TypeConverters(Converters::class)
 abstract class ArticleDB : RoomDatabase() {
@@ -28,7 +28,7 @@ fun createDB(context: Context): ArticleDB {
                 context.applicationContext,
                 ArticleDB::class.java,
                 "article_db.db"
-            ).build()
+            ).fallbackToDestructiveMigration().build()
         }
     }
     return instance

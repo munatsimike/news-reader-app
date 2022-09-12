@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="user"
+            type="nl.project.newsreader2022.model.User" />
         <variable
             name="userViewModel"
             type="nl.project.newsreader2022.viewModel.UserViewModel" />
@@ -35,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
+            android:textStyle="bold"
             android:text="@string/member_login"
             android:textSize="@dimen/sp_22"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,11 +46,11 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/tvMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{loginBottomSheet.response}"
-            android:textColor='@{loginBottomSheet.isRegistered ? @color/green : @color/red}'
+            android:text="@{loginBottomSheet.message}"
+            android:textColor="@{loginBottomSheet.isSuccess ? @color/green : @color/red}"
             android:textSize="@dimen/sp_17"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
@@ -55,7 +58,7 @@
             app:layout_constraintTop_toBottomOf="@+id/memberLogin" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/login_emailContainer"
+            android:id="@+id/usernameContainer"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,12 +66,12 @@
             android:layout_marginStart="@dimen/dp_8"
             android:layout_marginEnd="@dimen/dp_8"
             app:errorEnabled="true"
-            app:helperText="@{userViewModel.usernameError}"
+            app:helperText=""
             app:helperTextTextColor="@color/design_default_color_error"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4">
+            app:layout_constraintTop_toBottomOf="@+id/tvMessage">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/username"
@@ -77,12 +80,12 @@
                 android:hint="@string/username"
                 android:inputType="textEmailAddress"
                 android:maxLength="20"
-                android:onTextChanged="@{(text, start, before, count) -> userViewModel.validateUsername(text.toString())}"
+                app:isUsernameValid="@{usernameContainer}"
                 android:textColorHint="#757575" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/password_container"
+            android:id="@+id/passwordContainer"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,12 +94,12 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="@dimen/dp_8"
             app:errorEnabled="true"
-            app:helperText="@{userViewModel.passwordError}"
+            app:helperText=""
             app:helperTextTextColor="@color/design_default_color_error"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_emailContainer"
+            app:layout_constraintTop_toBottomOf="@+id/usernameContainer"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -106,7 +109,7 @@
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:maxLength="20"
-                android:onTextChanged="@{(text,start,before, count)->userViewModel.validatePassword(text.toString())}" />
+                app:isPassValid="@{passwordContainer}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ToggleButton
@@ -120,7 +123,7 @@
             android:onCheckedChanged="@{(button, state)->userViewModel.setLoginRegisterBtnText(state)}"
             android:stateListAnimator="@null"
             android:textAllCaps="false"
-            android:textColor="#1976D2"
+            android:textColor="@color/light_blue"
             android:textOn="@string/already_have_an_account_login_now"
             android:textOff="@string/don_t_have_an_account_register_now"
             android:textSize="@dimen/sp_18"
@@ -139,14 +142,14 @@
             android:layout_marginEnd="32dp"
             android:backgroundTint="@color/black"
             android:fontFamily="@font/roboto"
-            android:onClick="@{()->userViewModel.userLoginRegister(username.getText().toString(), password.getText().toString())}"
+            android:onClick='@{()->(passwordContainer.getHelperText()== null &amp;&amp; usernameContainer.getHelperText() == null) ? userViewModel.userLoginRegister(username.getText().toString(), password.getText().toString()):tvMessage.setText("All fields are mandatory")}'
             android:text='@{userViewModel.loginRegisterBtnText}'
             android:textColor="@color/white"
             android:textSize="@dimen/sp_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password_container" />
+            app:layout_constraintTop_toBottomOf="@+id/passwordContainer" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"

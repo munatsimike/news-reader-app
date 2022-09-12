@@ -35,12 +35,10 @@ class NewsViewModel @Inject constructor(
             repo.likeDislikeAPi(article)
         }
     }
-
-
+    
    fun refreshLikedArticles() {
        viewModelScope.launch {
            repo.likedArticles()
-
        }
     }
 }

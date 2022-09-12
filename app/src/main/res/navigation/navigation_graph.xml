@@ -9,14 +9,18 @@
         android:id="@+id/homeFragment"
         android:name="nl.project.newsreader2022.ui.fragments.HomeFragment"
         android:label="home_fragment"
-        tools:layout="@layout/home_fragment" >
-        <action
-            android:id="@+id/action_homeFragment_to_favouriteFragment"
-            app:destination="@id/favouriteFragment" />
-    </fragment>
+        tools:layout="@layout/home_fragment" />
     <fragment
         android:id="@+id/favouriteFragment"
         android:name="nl.project.newsreader2022.ui.fragments.FavouriteFragment"
         android:label="favourite_fragment"
         tools:layout="@layout/favourite_fragment" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="nl.project.newsreader2022.ui.fragments.DetailsFragment"
+        android:label="DetailsFragment" >
+        <argument
+            android:name="article"
+            app:argType="nl.project.newsreader2022.model.NewsArticle" />
+    </fragment><action android:id="@+id/action_global_detailsFragment" app:destination="@id/detailsFragment"/>
 </navigation>
