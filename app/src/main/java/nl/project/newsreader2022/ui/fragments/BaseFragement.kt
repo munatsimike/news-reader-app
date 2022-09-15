@@ -6,18 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import nl.project.newsreader2022.adapters.NewsAdapter
 import nl.project.newsreader2022.miscellaneous.ClickListener
 import nl.project.newsreader2022.miscellaneous.showApiErrorFailure
 import nl.project.newsreader2022.model.NewsArticle
+import nl.project.newsreader2022.network.updateHeaderToken
 import nl.project.newsreader2022.viewModel.NewsViewModel
+import nl.project.newsreader2022.viewModel.UserViewModel
 
 // this class contains code that can be shared by all fragments
 abstract class BaseFragment<VB : ViewBinding>(private val layoutInflater: (bindingInflater: LayoutInflater) -> VB) :
     Fragment(), ClickListener {
     val viewModel: NewsViewModel by activityViewModels()
+    val userViewModel: UserViewModel by activityViewModels()
+
     lateinit var newsAdapter: NewsAdapter
 
     private var _binding: VB? = null
@@ -38,6 +43,8 @@ abstract class BaseFragment<VB : ViewBinding>(private val layoutInflater: (bindi
         if (_binding == null) {
             throw IllegalArgumentException("Binding cannot be null")
         }
+
+        authTokenObserver()
         return binding.root
     }
 
@@ -50,6 +57,16 @@ abstract class BaseFragment<VB : ViewBinding>(private val layoutInflater: (bindi
     private fun showToast() {
         viewModel.toastMessage.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { it1 -> showApiErrorFailure(it1) }
+        }
+    }
+
+    // observe token changes
+    private fun authTokenObserver() {
+        userViewModel.authToken.asLiveData().observe(viewLifecycleOwner) {
+            if (it != null) {
+                // update user service
+                updateHeaderToken(it)
+            }
         }
     }
 }

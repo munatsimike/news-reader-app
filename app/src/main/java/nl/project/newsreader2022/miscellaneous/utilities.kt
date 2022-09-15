@@ -43,7 +43,7 @@ fun Fragment.showApiErrorFailure(
     }.onError {
         if (statusCode.code == 401)
             requireView().snackBar(
-                "User not logged in, please login to access favourites"
+                "User not logged in, please login to save and access favourites"
             )
     }
 }

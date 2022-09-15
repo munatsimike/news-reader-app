@@ -5,9 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import nl.project.newsreader2022.model.AuthToken
 import nl.project.newsreader2022.model.enums.LoginRegisterBtn
-import nl.project.newsreader2022.network.setAuthToken
 import nl.project.newsreader2022.repository.UserRepository
 import javax.inject.Inject
 
@@ -57,9 +55,5 @@ class UserViewModel @Inject constructor(private val userRepository: UserReposito
         viewModelScope.launch {
             userRepository.logout()
         }
-    }
-
-    fun updateToken(token: AuthToken){
-        setAuthToken(token)
     }
 }

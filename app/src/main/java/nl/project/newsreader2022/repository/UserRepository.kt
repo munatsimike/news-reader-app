@@ -5,10 +5,10 @@ import com.skydoves.sandwich.onFailure
 import com.skydoves.sandwich.onSuccess
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import nl.project.newsreader2022.model.AuthToken
 import nl.project.newsreader2022.network.UserApi
 import nl.project.newsreader2022.miscellaneous.Coroutines
 import nl.project.newsreader2022.miscellaneous.Event
+import nl.project.newsreader2022.model.Token
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(
@@ -22,8 +22,9 @@ class UserRepository @Inject constructor(
     ) {
         UserApi.retrofitService.userLoginAsync(username, password)
             .onSuccess {
-                Coroutines.io { saveAuthToken(AuthToken(data.AuthToken)) }
-            }.onError { toastData_.value = Event(this) }
+                Coroutines.io { saveAuthToken(data) }
+            }
+            .onError { toastData_.value = Event(this) }
             .onFailure { toastData_.value = Event(this) }
     }
 
@@ -38,7 +39,7 @@ class UserRepository @Inject constructor(
     }
 
     // save authtoken to dataStore
-    private suspend fun saveAuthToken(token: AuthToken) {
+    private suspend fun saveAuthToken(token: Token) {
         withContext(Dispatchers.IO) {
             userManager.saveAuthToken(token)
         }
