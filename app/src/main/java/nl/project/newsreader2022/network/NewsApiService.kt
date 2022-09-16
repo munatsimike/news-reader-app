@@ -2,6 +2,7 @@ package nl.project.newsreader2022.network
 
 import com.skydoves.sandwich.ApiResponse
 import nl.project.newsreader2022.model.MyData
+import nl.project.newsreader2022.model.NewsArticle
 import nl.project.newsreader2022.model.Token
 import okhttp3.ResponseBody
 import retrofit2.http.*

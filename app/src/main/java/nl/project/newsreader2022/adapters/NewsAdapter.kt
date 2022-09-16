@@ -1,5 +1,6 @@
 package nl.project.newsreader2022.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -49,7 +50,7 @@ class NewsAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (currentList.lastIndex == position) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
+        return if (currentList[position] == null) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -58,5 +59,18 @@ class NewsAdapter(
         } else {
             (holder as LoadingViewHolder).showProgressBar()
         }
+    }
+
+    fun addNullMarker() {
+        val currentList = currentList.toMutableList()
+        currentList.add(null)
+        submitList(currentList)
+    }
+
+    fun removeNullMarker() {
+        val currentList = currentList.toMutableList()
+        if (currentList.size > 0 && currentList.last() == null)
+            currentList.removeLast()
+        submitList(currentList)
     }
 }

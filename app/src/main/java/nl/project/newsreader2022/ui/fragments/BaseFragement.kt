@@ -1,6 +1,8 @@
 package nl.project.newsreader2022.ui.fragments
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,5 +70,11 @@ abstract class BaseFragment<VB : ViewBinding>(private val layoutInflater: (bindi
                 updateHeaderToken(it)
             }
         }
+    }
+
+    fun delay(duration: Long,  action: ()->Unit){
+        Handler(Looper.getMainLooper()).postDelayed({
+            action.invoke()
+        }, duration)
     }
 }

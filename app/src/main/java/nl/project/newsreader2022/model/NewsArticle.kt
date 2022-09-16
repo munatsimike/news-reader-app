@@ -20,4 +20,3 @@ data class NewsArticle(
     val Title: String,
     val Url: String
 ) : Serializable
-// total articles to retrieve from the Api

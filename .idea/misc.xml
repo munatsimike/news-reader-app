@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout-v26/item_article_preview.xml" value="0.22448979591836735" />
         <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/details_fragment.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/home_fragment.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/item_loading.xml" value="0.1" />
         <entry key="..\:/Users/munat/AndroidStudioProjects/newsreader2022/app/src/main/res/layout/login_bottom_sheet.xml" value="0.1" />
       </map>
     </option>
