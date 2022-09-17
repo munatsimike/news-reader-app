@@ -13,7 +13,7 @@
 
         <variable
             name="clickListener"
-            type="nl.project.newsreader2022.miscellaneous.ClickListener" />
+            type="nl.project.newsreader2022.miscellaneous.listeners.ClickListener" />
     </data>
 
     <LinearLayout
@@ -68,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{String.valueOf(article.id)}"
+                    android:text='@{ "ID# " + String.valueOf(article.id)}'
                     android:textColor="@android:color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ivArticleImage" />
@@ -82,9 +82,8 @@
                     android:maxLines="3"
                     android:onClick="@{()->clickListener.onClickItem(article)}"
                     android:text="@{article.title}"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/light_blue"
                     android:textSize="15sp"
-                    android:textStyle="bold"
                     app:layout_constraintLeft_toRightOf="@+id/ivArticleImage"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

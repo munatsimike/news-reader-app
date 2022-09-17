@@ -5,26 +5,28 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.AndroidEntryPoint
 import nl.project.newsreader2022.databinding.HomeFragmentBinding
-import nl.project.newsreader2022.miscellaneous.PaginationScrollListener
+import nl.project.newsreader2022.miscellaneous.listeners.PaginationScrollListener
 
 @AndroidEntryPoint
 open class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding::inflate) {
     private var nextId = 0
+    private var isRefreshing: Boolean = false
     private var isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.newsAdapter = newsAdapter
         displayArticles()
         initScrollListener()
+        initSwipeToRefresh()
         nextNewsArticleId()
     }
 
     private fun displayArticles() {
         viewModel.articles.observe(viewLifecycleOwner) {
-            if (isLoading.value == true) {
-                isLoading.value = false
-            }
+            switchOffLoading()
             newsAdapter.submitList(it.toMutableList())
+            delay(1000) { switchOffRefresher() }
         }
     }
 
@@ -66,7 +68,35 @@ open class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding:
         }
     }
 
-    // number of articles to fetched from the remote server
+    open fun initSwipeToRefresh() {
+        binding.swipeRefresh.setOnRefreshListener {
+            isRefreshing = true
+            delay(1500) { refreshArticles() }
+        }
+    }
+
+    // fetch articles from api
+    private fun refreshArticles() {
+        newsAdapter.currentList.toMutableList().clear()
+        viewModel.refreshArticles()
+    }
+
+    // switch off refreshing progress bar
+    private fun switchOffRefresher() {
+        if (isRefreshing) {
+            isRefreshing = false
+            binding.swipeRefresh.isRefreshing = false
+        }
+    }
+
+    // turn off is loading when new items have been received
+    private fun switchOffLoading() {
+        if (isLoading.value == true) {
+            isLoading.value = false
+        }
+    }
+
+    // number of articles to fetch from remote server
     companion object {
         const val NUM_OF_ARTICLES = 20
     }

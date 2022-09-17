@@ -12,7 +12,7 @@ import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import nl.project.newsreader2022.adapters.NewsAdapter
-import nl.project.newsreader2022.miscellaneous.ClickListener
+import nl.project.newsreader2022.miscellaneous.listeners.ClickListener
 import nl.project.newsreader2022.miscellaneous.showApiErrorFailure
 import nl.project.newsreader2022.model.NewsArticle
 import nl.project.newsreader2022.network.updateHeaderToken

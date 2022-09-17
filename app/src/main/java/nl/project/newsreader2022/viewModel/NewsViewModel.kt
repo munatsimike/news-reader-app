@@ -17,9 +17,7 @@ class NewsViewModel @Inject constructor(
     val nextId = repo.nextId
 
     init {
-        viewModelScope.launch {
-            repo.refreshArticles()
-        }
+        refreshArticles()
     }
 
     // get more articles after previous batch has scrolled to the end on the recycler view
@@ -41,4 +39,11 @@ class NewsViewModel @Inject constructor(
            repo.likedArticles()
        }
     }
+
+    fun refreshArticles(){
+        viewModelScope.launch {
+            repo.refreshArticles()
+        }
+    }
+
 }

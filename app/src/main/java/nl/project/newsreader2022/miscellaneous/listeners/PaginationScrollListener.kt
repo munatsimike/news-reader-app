@@ -1,4 +1,4 @@
-package nl.project.newsreader2022.miscellaneous
+package nl.project.newsreader2022.miscellaneous.listeners
 
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView

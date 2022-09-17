@@ -1,4 +1,4 @@
-package nl.project.newsreader2022.miscellaneous
+package nl.project.newsreader2022.miscellaneous.listeners
 
 import nl.project.newsreader2022.model.NewsArticle
 
