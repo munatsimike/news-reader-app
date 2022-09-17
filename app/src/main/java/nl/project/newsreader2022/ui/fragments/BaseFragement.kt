@@ -58,7 +58,7 @@ abstract class BaseFragment<VB : ViewBinding>(private val layoutInflater: (bindi
     //  display responses from api
     private fun showToast() {
         viewModel.toastMessage.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let { it1 -> showApiErrorFailure(it1) }
+            it.getContentIfNotHandled()?.let { it1 -> showApiErrorFailure(it1) {viewModel.refreshArticles()} }
         }
     }
 

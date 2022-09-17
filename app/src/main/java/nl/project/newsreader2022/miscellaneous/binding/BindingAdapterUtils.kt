@@ -1,4 +1,4 @@
-package nl.project.newsreader2022.miscellaneous
+package nl.project.newsreader2022.miscellaneous.binding
 
 import android.content.Intent
 import android.net.Uri
@@ -12,9 +12,10 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import coil.load
-import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
 import nl.project.newsreader2022.R
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class BindingAdapterUtils {
 
@@ -58,6 +59,13 @@ class BindingAdapterUtils {
         @BindingAdapter("visibility")
         fun View.visibility(count: Int) {
             this.isVisible = count > 0
+        }
+
+        @JvmStatic
+        @BindingAdapter("date")
+        fun TextView.dateFromLocalDateTime(localDateTime: LocalDateTime) {
+            val pattern = DateTimeFormatter.ofPattern("dd-MMMM-yyyy")
+            text = localDateTime.format(pattern)
         }
 
         // create text view

@@ -103,11 +103,11 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
                 <TextView
-                    android:id="@+id/tvPublishedAt"
+                    android:id="@+id/tvPublishDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@{article.publishDate}"
+                    app:date="@{article.publishDate}"
                     android:textColor="@android:color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvId" />

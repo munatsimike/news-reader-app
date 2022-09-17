@@ -41,7 +41,7 @@ fun Fragment.showApiErrorFailure(
 ) {
 
     response.onFailure {
-        requireView().snackBar("No Internet, please check your internet connection.")
+        requireView().snackBar("No Internet, please check your internet connection.", retry)
     }.onError {
         if (statusCode.code == 401)
             requireView().snackBar(
