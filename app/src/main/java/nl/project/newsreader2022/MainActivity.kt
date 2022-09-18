@@ -46,23 +46,34 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.login) {
-           // observe token changes
+            // observe token changes
             userViewModel.authToken.asLiveData().observe(this) { token ->
+                val fragmentManager = supportFragmentManager
+                fragmentManager.executePendingTransactions()
+
                 if (token?.AuthToken == null) {
                     if (logoutBottomSheet.isVisible) {
                         logoutBottomSheet.dismiss()
                     }
-                    loginBottomSheet.show(
-                        supportFragmentManager,
-                        "login"
-                    )
+
+                    if (!loginBottomSheet.isAdded) {
+                        loginBottomSheet.show(
+                            fragmentManager,
+                            "login"
+                        )
+                    }
+
                 } else {
-                    if (loginBottomSheet.isVisible)
+                    if (loginBottomSheet.isVisible) {
                         loginBottomSheet.dismiss()
-                    logoutBottomSheet.show(
-                        supportFragmentManager,
-                        "logout"
-                    )
+                    }
+
+                    if (!logoutBottomSheet.isAdded) {
+                        logoutBottomSheet.show(
+                            fragmentManager,
+                            "logout"
+                        )
+                    }
                 }
             }
         }
@@ -81,12 +92,18 @@ class MainActivity : AppCompatActivity() {
     private fun destinationChangeListener() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.detailsFragment) {
+                // hide action bar
                 supportActionBar?.hide()
+                // hide bottom navigation bar
                 binding.bottomNavMenu.isVisible = false
+                // hid status bar
                 window.decorView.windowInsetsController?.hide(WindowInsets.Type.statusBars())
             } else {
+                // show status bar
                 window.decorView.windowInsetsController?.show(WindowInsets.Type.statusBars())
+                // show bottom navigation bar
                 binding.bottomNavMenu.isVisible = true
+                // show action bar
                 supportActionBar?.show()
             }
         }

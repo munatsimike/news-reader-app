@@ -22,8 +22,12 @@ fun View.snackBar(message: String, action: (() -> Unit)? = null) {
         com.google.android.material.R.id.snackbar_text
     )
     snackText.textSize = 18F
-    snackbar.setBackgroundTint(ContextCompat.getColor(context, R.color.navy))
-    snackbar.setTextMaxLines(3)
+
+    snackbar.apply {
+        setBackgroundTint(ContextCompat.getColor(context, R.color.navy))
+        setTextMaxLines(3)
+        setActionTextColor(ContextCompat.getColor(context, R.color.orange))
+    }
 
     action?.let {
         snackbar.setAction("Retry") {
@@ -41,7 +45,7 @@ fun Fragment.showApiErrorFailure(
 ) {
 
     response.onFailure {
-        requireView().snackBar("No Internet, please check your internet connection.")
+        requireView().snackBar("No Internet, please check your internet connection.", retry)
     }.onError {
         if (statusCode.code == 401)
             requireView().snackBar(

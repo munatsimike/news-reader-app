@@ -15,6 +15,7 @@ class NewsViewModel @Inject constructor(
     val likedArticles = repo.likedArticle
     val articles = repo.articles
     val nextId = repo.nextId
+    val isUserLoggedIn = repo.isUserLoggedIn
 
     init {
         refreshArticles()
@@ -45,5 +46,4 @@ class NewsViewModel @Inject constructor(
             repo.refreshArticles()
         }
     }
-
 }
