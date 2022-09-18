@@ -9,8 +9,8 @@ import retrofit2.http.*
 
 private var myToken: String = ""
 
-fun updateHeaderToken(token: Token) {
-    myToken = token.AuthToken
+fun updateHeaderToken(token: Token?) {
+    myToken = token?.AuthToken ?: ""
 }
 
 interface NewsApiService {

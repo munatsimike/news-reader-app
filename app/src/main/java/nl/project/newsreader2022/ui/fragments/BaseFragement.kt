@@ -65,10 +65,9 @@ abstract class BaseFragment<VB : ViewBinding>(private val layoutInflater: (bindi
     // observe token changes
     private fun authTokenObserver() {
         userViewModel.authToken.asLiveData().observe(viewLifecycleOwner) {
-            if (it != null) {
                 // update user service
                 updateHeaderToken(it)
-            }
+
         }
     }
 
